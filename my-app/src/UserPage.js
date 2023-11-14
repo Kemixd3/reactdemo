@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 const Account = ({ user }) => {
   const [loading, setLoading] = useState(true);
@@ -8,17 +8,16 @@ const Account = ({ user }) => {
   const [id, setUserId] = useState("");
   const [age, setAge] = useState("");
 
-  const inputRef = useRef(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("userData.json");
+        const response = await fetch("./userData.json");
         const data = await response.json();
         setUserData(data.users); // Set user data from JSON
-        console.log(data);
+        console.log(userData);
         // Set default values for username, website, and avatar_url
-        if (user) {
+        if (user && user.email) {
+          // Check if user and user.email exist
           const currentUser = data.users.find((u) => u.email === user.email);
           if (currentUser) {
             setUserId(currentUser.id || "");
@@ -58,7 +57,8 @@ const Account = ({ user }) => {
         "Saving ..."
       ) : (
         <form onSubmit={updateProfile} className="form-widget">
-          <div>Email: {user.email}</div>
+          <div>Email: {user?.email}</div>{" "}
+          {/* Use optional chaining to handle undefined user */}
           <div>
             <label htmlFor="username">Name</label>
             <input
@@ -69,7 +69,6 @@ const Account = ({ user }) => {
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
-
           <div>
             <label htmlFor="phone">Image</label>
             <input
@@ -80,7 +79,6 @@ const Account = ({ user }) => {
             />
           </div>
           {phone}
-
           <div>
             <button className="button primary block" disabled={loading}>
               Update profile
