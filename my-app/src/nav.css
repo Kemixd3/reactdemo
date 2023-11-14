@@ -1,0 +1,19 @@
+.Main {
+    text-align: center;
+}
+
+.text {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.text a {
+    margin-right: 20px; /* Adjust the spacing between links as needed */
+    text-decoration: none;
+    color: #333; /* Set the color for the links */
+    font-weight: bold; /* Add bold font weight to make the links stand out */
+}
+
+.text a:hover {
+    color: #007bff; /* Change the color on hover */
+}
